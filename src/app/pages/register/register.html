@@ -9,21 +9,27 @@
 
         <div class="mb-3">
           <label class="form-label">User Name</label>
+          <span class="text-danger"> *</span>
           <input
           type="text"
            formControlName="userName"
-            class="form-control" 
+            class="form-control"
+            minlength="5"
+            required
+            trim
           />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Phone Number</label>
+          <span class="text-danger"> *</span>
           <input
           type="text"
             formControlName="userPhone"
             class="form-control"
             placeholder="10-digit phone number"
             maxlength="10"
+            required
           />
           @if (registrationForm.get('userPhone')?.invalid && registrationForm.get('userPhone')?.touched) {
             <div class="text-danger small mt-1">Phone must be 10 digits</div>
@@ -32,10 +38,13 @@
 
         <div class="mb-3">
           <label class="form-label">Email</label>
+          <span class="text-danger"> *</span>
           <input
             type="email"
             formControlName="userEmail"
             class="form-control"
+            required
+            trim
           />
           @if (registrationForm.get('userEmail')?.invalid && registrationForm.get('userEmail')?.touched) {
             <div class="text-danger small mt-1">Invalid email address</div>
@@ -44,6 +53,7 @@
 
         <div class="mb-3">
           <label class="form-label">Gender</label>
+          <span class="text-danger"> *</span>
           <select formControlName="gender" 
             class="form-select">
             <option value="">-Select-</option>
@@ -63,11 +73,14 @@
 
         <div class="mb-3">
           <label class="form-label">Password</label>
+          <span class="text-danger"> *</span>
           <input
             formControlName="password"
             type="password"
             class="form-control"
             minlength="4"
+            required
+            trim
           />
         </div>
 

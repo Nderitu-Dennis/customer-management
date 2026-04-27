@@ -9,17 +9,26 @@
       <form [formGroup]="loginForm" (ngSubmit)="submit()">
         <div class="mb-3">
           <label class="form-label">User Name</label>
+          <span class="text-danger"> *</span>
           <input 
           type="text"
-          formControlName="userName" class="form-control" />
+          formControlName="userName"
+           class="form-control"
+           required
+           minlength="5"
+           trim />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Password</label>
+          <span class="text-danger"> *</span>
           <input
             formControlName="password"
             type="password"
-            class="form-control"           
+            class="form-control" 
+            required
+            trim
+
           />
         </div>
 
