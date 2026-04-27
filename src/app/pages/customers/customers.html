@@ -1,0 +1,110 @@
+<nav class="navbar navbar-dark bg-primary px-4">
+ <span class="navbar-brand fw-bold">Customer Management System</span>
+  
+
+  <div class="d-flex gap-2">
+    @if (auth.isAdmin()) {
+      <a routerLink="/dashboard" class="btn btn-outline-light btn-sm">Users</a>
+    }
+    <button (click)="auth.logout()" class="btn btn-light btn-sm">Logout</button>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  @if (auth.isAdmin()) {
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-white fw-bold">Add Customer</div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="addCustomer()">
+          <div class="row g-3">
+           
+            <div class="col-md-4">
+              <input formControlName="custName" class="form-control" placeholder="Name" />
+            </div>
+            <div class="col-md-4">
+              <input formControlName="custAdd" class="form-control" placeholder="Address" />
+            </div>
+            <div class="col-md-4">
+              <input
+                formControlName="custPhone"
+                class="form-control"
+                placeholder="Phone (10 digits)"
+                maxlength="10"
+              />
+              @if (form.get('custPhone')?.invalid && form.get('custPhone')?.touched) {
+                <div class="text-danger small mt-1">Phone must be 10 digits</div>
+              }
+            </div>
+            <div class="col-md-4">
+              <input formControlName="custEmail" class="form-control" placeholder="Email" />
+              @if (form.get('custEmail')?.invalid && form.get('custEmail')?.touched) {
+                <div class="text-danger small mt-1">Invalid email</div>
+              }
+            </div>
+            <div class="col-md-4">
+              <select formControlName="custType" class="form-select">
+                <option value="">-Select Customer Type-</option>
+                <option value="SILVER">Silver</option>
+                <option value="GOLD">Gold</option>
+                <option value="DIAMOND">Diamond</option>
+              </select>
+            </div>
+          </div>
+          @if (msg) {
+            <div class="alert alert-success py-2 mt-3">{{ msg }}</div>
+          }
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">
+            Add Customer
+          </button>
+        </form>
+      </div>
+    </div>
+  }
+
+  <h5 class="mb-3 fw-bold">Customer List</h5>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>CustID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Type</th>
+          <th>Discount (%)</th>
+          @if (auth.isAdmin()) {
+            <th>Action</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of customers; track c.custId) {
+          <tr>
+            <td>{{ c.custId }}</td>
+            <td>{{ c.custName }}</td>
+            <td>{{ c.custAdd }}</td>
+            <td>{{ c.custPhone }}</td>
+            <td>{{ c.custEmail }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.bg-secondary]="c.custType === 'SILVER'"
+                [class.bg-warning]="c.custType === 'GOLD'"
+                [class.bg-info]="c.custType === 'DIAMOND'"
+              >
+                {{ c.custType }}
+              </span>
+            </td>
+            <td>{{ c.discount }}%</td>
+            @if (auth.isAdmin()) {
+              <td>
+                <button (click)="delete(c.custId)" class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

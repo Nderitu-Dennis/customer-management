@@ -1,0 +1,84 @@
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light mt-2">
+    
+  <div class="card shadow" style="width: 450px">
+    <div class="card-body p-4">
+      <h4 class="card-title text-center mb-4 fw-bold text-danger">Customer Management System</h4>
+      <h4 class="text-center mb-4 text-primary">Create Account</h4>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+
+        <div class="mb-3">
+          <label class="form-label">User Name</label>
+          <input
+          type="text"
+           formControlName="userName"
+            class="form-control" 
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <input
+          type="text"
+            formControlName="userPhone"
+            class="form-control"
+            placeholder="10-digit phone number"
+            maxlength="10"
+          />
+          @if (registrationForm.get('userPhone')?.invalid && registrationForm.get('userPhone')?.touched) {
+            <div class="text-danger small mt-1">Phone must be 10 digits</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            formControlName="userEmail"
+            class="form-control"
+          />
+          @if (registrationForm.get('userEmail')?.invalid && registrationForm.get('userEmail')?.touched) {
+            <div class="text-danger small mt-1">Invalid email address</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Gender</label>
+          <select formControlName="gender" 
+            class="form-select">
+            <option value="">-Select-</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Photo <span class="text-muted small">(optional)</span></label>
+
+          <input type="file" 
+          class="form-control"
+           accept="image/*" 
+           (change)="onPhotoSelected($event)" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control"
+            minlength="4"
+          />
+        </div>
+
+        @if (msg) {
+          <div class="alert alert-success py-2">{{ msg }}</div>
+        }
+
+        <button type="submit" class="btn btn-outline-primary w-100">Register</button>
+      </form>
+
+      <p class="text-center mt-3 mb-0 text-info">Already have an account? <a routerLink="/login">Login</a></p>
+    </div>
+  </div>
+</div>

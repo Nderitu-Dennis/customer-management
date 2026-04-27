@@ -1,0 +1,43 @@
+<nav class="navbar navbar-dark bg-primary px-4">
+  <span class="navbar-brand fw-bold">Customer Management System</span>
+@if (auth.isAdmin()) {
+  <span class="badge bg-warning text-dark ms-2">ADMIN</span>
+}
+  <div class="d-flex gap-2">
+    <a routerLink="/customers" class="btn btn-outline-light btn-sm">Customers</a>
+    <button (click)="auth.logout()" class="btn btn-light btn-sm">Logout</button>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h5 class="mb-3 fw-bold">Registered Users</h5>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Photo</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of users; track u.userId) {
+          <tr>
+            <td>{{ u.userId }}</td>
+            <td>{{ u.userName }}</td>
+            <td>{{ u.userPhone }}</td>
+            <td>{{ u.userEmail }}</td>
+            <td>{{ u.gender }}</td>
+            <td>{{u.photo || '--'}}</td>
+            <td>{{ u.role }}</td>
+            
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

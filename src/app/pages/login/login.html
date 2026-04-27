@@ -1,0 +1,38 @@
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+
+  <div class="card shadow" style="width: 400px">
+    <div class="card-body p-4">
+      <h4 class="card-title text-center mb-4 fw-bold text-danger">Customer Management System</h4>
+
+      <h4 class="text-center mb-4 text-primary">Sign In</h4>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">User Name</label>
+          <input 
+          type="text"
+          formControlName="userName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control"           
+          />
+        </div>
+
+        @if (error) {
+          <div class="alert alert-danger py-2">{{ error }}</div>
+        }
+
+        <button type="submit" class="btn btn-outline-primary w-100">Login</button>
+      </form>
+
+      <p class="text-center mt-3 mb-0 text-info">
+        Don't have an account? <a routerLink="/register">Register</a>
+      </p>
+    </div>
+  </div>
+</div>
