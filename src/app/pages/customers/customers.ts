@@ -5,12 +5,11 @@ import { CustomerService } from '../../core/services/customer';
 import { AuthService } from '../../core/services/auth';
 import { RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-customers',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './customers.html'
+  templateUrl: './customers.html',
 })
 export class CustomersComponent implements OnInit {
   customers: any[] = [];
@@ -22,22 +21,25 @@ export class CustomersComponent implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     private customerSvc: CustomerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.customerForm = this.fb.group({
       custName: ['', Validators.required],
       custAdd: ['', Validators.required],
 
-      custPhone: ['', [Validators.required, 
-        Validators.pattern(/^\d{10}$/),
-      Validators.maxLength(10)]],
-      
+      custPhone: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{10}$/), Validators.maxLength(10)],
+      ],
+
       custEmail: ['', [Validators.required, Validators.email]],
-      custType: ['', Validators.required]
+      custType: ['', Validators.required],
     });
   }
 
-  ngOnInit() { this.load(); }
+  ngOnInit() {
+    this.load();
+  }
 
   load() {
     this.customerSvc.getAll().subscribe({
@@ -45,15 +47,19 @@ export class CustomersComponent implements OnInit {
         this.customers = data;
         this.cdr.detectChanges();
       },
-      error: (err) => console.error('Failed to load customers', err)
+      error: (err) => console.error('Failed to load customers', err),
     });
   }
 
   addCustomer() {
     if (this.customerForm.invalid) return;
     this.customerSvc.add(this.customerForm.value).subscribe({
-      next: () => { this.msg = 'Customer added!'; this.customerForm.reset(); this.load(); },
-      error: () => this.msg = 'Failed to add customer'
+      next: () => {
+        this.msg = 'Customer added!';
+        this.customerForm.reset();
+        this.load();
+      },
+      error: () => (this.msg = 'Failed to add customer'),
     });
   }
 

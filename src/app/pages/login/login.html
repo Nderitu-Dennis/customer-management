@@ -28,15 +28,13 @@
             class="form-control" 
             required
             trim
+            minlength="5"
 
           />
         </div>
 
-        @if (error) {
-          <div class="alert alert-danger py-2">{{ error }}</div>
-        }
-
-        <button type="submit" class="btn btn-outline-primary w-100">Login</button>
+      
+        <button type="submit" class="btn btn-outline-primary w-100">Log In</button>
       </form>
 
       <p class="text-center mt-3 mb-0 text-info">
