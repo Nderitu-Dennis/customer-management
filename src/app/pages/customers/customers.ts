@@ -16,7 +16,7 @@ export class CustomersComponent implements OnInit {
   customers: any[] = [];
   msg = '';
 
-  form: any;
+  customerForm: any;
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +24,7 @@ export class CustomersComponent implements OnInit {
     private customerSvc: CustomerService,
     private cdr: ChangeDetectorRef
   ) {
-    this.form = this.fb.group({
+    this.customerForm = this.fb.group({
       custName: ['', Validators.required],
       custAdd: ['', Validators.required],
 
@@ -50,9 +50,9 @@ export class CustomersComponent implements OnInit {
   }
 
   addCustomer() {
-    if (this.form.invalid) return;
-    this.customerSvc.add(this.form.value).subscribe({
-      next: () => { this.msg = 'Customer added!'; this.form.reset(); this.load(); },
+    if (this.customerForm.invalid) return;
+    this.customerSvc.add(this.customerForm.value).subscribe({
+      next: () => { this.msg = 'Customer added!'; this.customerForm.reset(); this.load(); },
       error: () => this.msg = 'Failed to add customer'
     });
   }

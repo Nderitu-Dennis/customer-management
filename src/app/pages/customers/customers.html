@@ -15,35 +15,66 @@
     <div class="card mb-4 shadow-sm">
       <div class="card-header bg-white fw-bold">Add Customer</div>
       <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="addCustomer()">
+        <form [formGroup]="customerForm" (ngSubmit)="addCustomer()">
           <div class="row g-3">
            
             <div class="col-md-4">
-              <input formControlName="custName" class="form-control" placeholder="Name" />
+              <label class="form-label">Customer Name</label>
+              <span class="text-danger"> *</span>
+              <input 
+              type="text"
+              formControlName="custName"
+               class="form-control"
+               required 
+               />
             </div>
+
             <div class="col-md-4">
-              <input formControlName="custAdd" class="form-control" placeholder="Address" />
+              <label class="form-label">Address</label>
+                <span class="text-danger"> *</span>
+              <input 
+              type="text"
+              formControlName="custAdd"
+               class="form-control"
+               required
+               />
             </div>
+
             <div class="col-md-4">
+              <label class="form-label">Phone</label>
+                        <span class="text-danger"> *</span>
+
               <input
+              type="text"
                 formControlName="custPhone"
                 class="form-control"
-                placeholder="Phone (10 digits)"
+                placeholder="10 digits"
                 maxlength="10"
+                required
               />
-              @if (form.get('custPhone')?.invalid && form.get('custPhone')?.touched) {
+              @if (customerForm.get('custPhone')?.invalid && customerForm.get('custPhone')?.touched) {
                 <div class="text-danger small mt-1">Phone must be 10 digits</div>
               }
             </div>
+
             <div class="col-md-4">
-              <input formControlName="custEmail" class="form-control" placeholder="Email" />
-              @if (form.get('custEmail')?.invalid && form.get('custEmail')?.touched) {
+              <label class="form-label">Email</label>
+                        <span class="text-danger"> *</span>
+
+              <input 
+              type="email"
+              formControlName="custEmail" 
+              class="form-control"
+               required />
+              @if (customerForm.get('custEmail')?.invalid && customerForm.get('custEmail')?.touched) {
                 <div class="text-danger small mt-1">Invalid email</div>
               }
             </div>
+//todo start here
             <div class="col-md-4">
               <select formControlName="custType" class="form-select">
-                <option value="">-Select Customer Type-</option>
+                <label class="form-label">Customer Type</label>
+                <option value="">-select-</option>
                 <option value="SILVER">Silver</option>
                 <option value="GOLD">Gold</option>
                 <option value="DIAMOND">Diamond</option>
@@ -53,7 +84,7 @@
           @if (msg) {
             <div class="alert alert-success py-2 mt-3">{{ msg }}</div>
           }
-          <button type="submit" [disabled]="form.invalid" class="btn btn-primary mt-3">
+          <button type="submit" [disabled]="customerForm.invalid" class="btn btn-primary mt-3">
             Add Customer
           </button>
         </form>
