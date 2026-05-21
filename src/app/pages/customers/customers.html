@@ -21,13 +21,27 @@
           <div class="col-md-4">
             <label class="form-label">Customer Name</label>
             <span class="text-danger"> *</span>
-            <input type="text" formControlName="custName" class="form-control" required />
+            <input
+             type="text"
+              formControlName="custName"
+               class="form-control"
+                required
+                trim
+                minlength="4" />
+
+                 @if (customerForm.get('custName')?.invalid && customerForm.get('custName')?.touched) {
+            <div class="text-danger small mt-1">Invalid name</div>
+            }
           </div>
 
           <div class="col-md-4">
             <label class="form-label">Address</label>
             <span class="text-danger"> *</span>
-            <input type="text" formControlName="custAdd" class="form-control" required />
+            <input 
+            type="text"
+             formControlName="custAdd" class="form-control" 
+             required 
+             trim/>
           </div>
 
           <div class="col-md-4">
@@ -63,9 +77,7 @@
             </select>
           </div>
         </div>
-        @if (msg) {
-        <div class="alert alert-success py-2 mt-3">{{ msg }}</div>
-        }
+      
         <button type="submit" [disabled]="customerForm.invalid" class="btn btn-primary mt-3">
           Add Customer
         </button>
@@ -73,7 +85,7 @@
     </div>
   </div>
   }
-  <!-- todo add download pic btn -->
+  <!-- todo add download pic btn for users -->
 
   <h5 class="mb-3 fw-bold">Customer List</h5>
   <div class="table-responsive">
@@ -114,6 +126,9 @@
           }
         </tr>
         }
+          @empty {
+              <tr><td colspan="8" class="text-center py-5 text-muted bg-white">No records found.</td></tr>
+            }
       </tbody>
     </table>
   </div>

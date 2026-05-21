@@ -21,7 +21,7 @@ export class LoginComponent {
     private router: Router,
   ) {
     this.loginForm = this.fb.group({
-      userName: ['',
+      username: ['',
          [Validators.required,
            Validators.minLength(5)]],
 

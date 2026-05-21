@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CustomerService } from '../../core/services/customer.service';
 import { AuthService } from '../../core/services/auth';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customers',
@@ -13,7 +14,6 @@ import { RouterLink } from '@angular/router';
 })
 export class CustomersComponent implements OnInit {
   customers: any[] = [];
-  msg = '';
 
   customerForm: any;
 
@@ -24,7 +24,11 @@ export class CustomersComponent implements OnInit {
     private cdr: ChangeDetectorRef,
   ) {
     this.customerForm = this.fb.group({
-      custName: ['', Validators.required],
+      custName: ['',
+         [Validators.required,
+          Validators.minLength(4),
+           Validators.pattern(/^[a-zA-Z\s]+$/)]],
+
       custAdd: ['', Validators.required],
 
       custPhone: [
@@ -55,15 +59,52 @@ export class CustomersComponent implements OnInit {
     if (this.customerForm.invalid) return;
     this.customerSvc.add(this.customerForm.value).subscribe({
       next: () => {
-        this.msg = 'Customer added!';
+        Swal.fire({
+          icon:'success',
+          text:'Customer added successfully!',
+          title:'Success'
+        }).then(()=>{
         this.customerForm.reset();
         this.load();
+      })},
+      error: () => {
+        Swal.fire({
+          icon:'error',
+          text:'Failed to add customers'
+        })
       },
-      error: () => (this.msg = 'Failed to add customer'),
     });
   }
 
   delete(id: string) {
-    this.customerSvc.delete(id).subscribe(() => this.load());
+    Swal.fire({
+    title: 'Are you sure?',
+    text: "This action cannot be reverted",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete!'
+  }).then((result) =>{
+if(result.isConfirmed){
+  this.customerSvc.delete(id).subscribe({
+    next: ()=>{
+      this.load();
+      Swal.fire({
+        title:'success',
+            text:'Customer deleted successfully!',
+            icon:'success'
+      }
+          );
+    },
+    error: (err) => {
+          console.error(err);
+          Swal.fire(
+            'Error!',
+            'Something went wrong while deleting.',
+            'error'
+          );
+        }});
+      }
+    })}
   }
-}

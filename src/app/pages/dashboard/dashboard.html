@@ -28,15 +28,18 @@
         @for (u of users; track u.userId) {
           <tr>
             <td>{{ u.userId }}</td>
-            <td>{{ u.userName }}</td>
-            <td>{{ u.userPhone }}</td>
-            <td>{{ u.userEmail }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.phone }}</td>
+            <td>{{ u.email }}</td>
             <td>{{ u.gender }}</td>
             <td>{{u.photo || '--'}}</td>
             <td>{{ u.role }}</td>
             
           </tr>
         }
+         @empty {
+              <tr><td colspan="7" class="text-center py-5 text-muted bg-white">No records found.</td></tr>
+            }
       </tbody>
     </table>
   </div>
