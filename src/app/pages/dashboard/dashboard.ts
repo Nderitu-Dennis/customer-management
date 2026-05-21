@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
-import { UserService } from '../../core/services/user';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-dashboard',

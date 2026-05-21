@@ -8,11 +8,11 @@
       <form [formGroup]="registrationForm" (ngSubmit)="submit()">
 
         <div class="mb-3">
-          <label class="form-label">User Name</label>
+          <label class="form-label">Username</label>
           <span class="text-danger"> *</span>
           <input
           type="text"
-           formControlName="userName"
+           formControlName="username"
             class="form-control"
             minlength="5"
             required
@@ -25,13 +25,13 @@
           <span class="text-danger"> *</span>
           <input
           type="text"
-            formControlName="userPhone"
+            formControlName="phone"
             class="form-control"
             placeholder="10-digit phone number"
             maxlength="10"
             required
           />
-          @if (registrationForm.get('userPhone')?.invalid && registrationForm.get('userPhone')?.touched) {
+          @if (registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched) {
             <div class="text-danger small mt-1">Phone must be 10 digits</div>
           }
         </div>
@@ -41,12 +41,12 @@
           <span class="text-danger"> *</span>
           <input
             type="email"
-            formControlName="userEmail"
+            formControlName="email"
             class="form-control"
             required
             trim
           />
-          @if (registrationForm.get('userEmail')?.invalid && registrationForm.get('userEmail')?.touched) {
+          @if (registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched) {
             <div class="text-danger small mt-1">Invalid email address</div>
           }
         </div>

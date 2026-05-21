@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { CustomerService } from '../../core/services/customer';
+import { CustomerService } from '../../core/services/customer.service';
 import { AuthService } from '../../core/services/auth';
 import { RouterLink } from '@angular/router';
 
